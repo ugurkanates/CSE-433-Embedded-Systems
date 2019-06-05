@@ -1,0 +1,581 @@
+module something(
+Clock,
+reset,
+switch,
+bcd0,
+bcd1,
+bcd2,
+bcd3,
+LED,
+
+);
+
+
+ //-------------Input Ports-----------------------------
+  input   Clock,reset,[9:0]switch;
+  
+  //-------------Output Ports----------------------------
+  output reg [9:0]LED;
+  
+   output reg [6:0]bcd0;  -> modulede olsa daha iyi datalar
+   output reg [6:0]bcd1;
+   output reg [6:0]bcd2;  -> 
+   output reg [6:0]bcd3; 
+	
+	//local variable
+	integer levelNumber; //first two of BCD 7 seg   *DECPRTD* level 6 110
+	integer points; // latter two of BCD 7 seg 4 bit 1234567910 2 uzerı 7
+	integer tens;
+	integer restofNum;
+	reg [25:0] counter;
+	wire pulse; //fastest aslinda
+	wire pulsefast; 
+	wire pulsemid; // middle aslinda
+	wire pulselow;
+	assign pulse = count[25]; // NEED TO DRIVE PULSE  burasi high olunca ucucak yani 
+	assign pulselow = pulse;
+	assign pulsemid = count[24];
+	assign pulsefast = count[23];
+	
+	reg [4:0] state;
+	wire [4:0] next_state; //bununs ebebine bak
+
+
+
+//----------Seq Logic-----------------------------
+// always gets next state in posedge clock
+//though if NEXT __ STT not changed it may stay in same
+//if reset baslangic state git isikli olan
+  always @ (posedge Clock , posedge reset)
+  begin : NEXT_STATELOGIC
+    if (reset == 1'b1) begin
+      state <=    state_start; // burda ve altta #1 vardi
+    end else begin
+      state <=    next_state;
+    end
+  end
+  // COUNTER  IMPLEMENTATION
+  
+  always @ (posedge clk, posedge reset)
+    if (reset) count <= 26'b0; else
+    if (pulse) count <= 26'b0; else
+              count <= count + 26'b1; 
+				  
+				  
+  
+  // level statelerini degistirmek
+always(*) begin : LEVEL_STATES
+	  next_state <= state_start;
+    case(state)
+	 state_start : begin
+	 //clock falan set edilcek
+	 bcd0 <= 7'b0011100; // u harf TEMP
+    bcd1 <= 7'b0000101; // r harf TEMP
+	 bcd2 <= 7'b0001111; // t harf TEMP
+    bcd3 <= 7'b1111111; // blank  TEMP
+	 if(button) begin
+	 next_state <= state_LEVEL1; end
+	 end
+    state_LEVEL1 : begin
+        if begin (out) next_state = state_LEVEL1_Out_Soru; out = 0; end
+        else begin next_state = state_LEVEL1; out = 0; end// its same level 
+    end
+	 state_LEVEL1_Out_Soru: begin 
+	 // 12+34  = 1 2 3 4  =  46
+	 next_state = state; // bu sayede out 0 olunca tekrar clockta oraya buraya gitmesin
+	 bcd0 <= 7'b1001111;
+    bcd1 <= 7'b0110000;
+	 bcd2 <= 7'b0000110;
+    bcd3 <= 7'b1001100;
+	 if(button) begin
+	  if(switch[5] && !switch[4] && switch[3] && switch[2] && switch[1] && !switch[0])begin
+			//true
+			next_state = state_LEVEL1_Out_TruWait;
+			end;
+		else begin
+		 //false
+			next_state = state_LEVEL1_Out_FalWait;
+		 end
+		 
+		 end
+		 end
+	state_LEVEL1_Out_TruWait:begin 
+	 bcd0 <= 7'b0011100; // u harf
+    bcd1 <= 7'b0000101; // r harf
+	 bcd2 <= 7'b0001111; // t harf
+    bcd3 <= 7'b1111111; // blank
+	 if(waitSig) begin 
+		next_state = state_LEVEL1_Out_TruWait; end
+	 else begin 
+		next_state = state_LEVEL2;
+	// show tru on bcd , go next level state
+	// Wait for all switches turn 0 again.
+	end
+	end
+	state_LEVEL1_Out_FalWait:begin 
+	 bcd0 <= 7'b1011011; // S harf
+    bcd1 <= 7'b0001110	; // L harf
+	 bcd2 <= 7'b1110111; // A harf
+    bcd3 <= 7'b1000111; // F
+	 
+	  if(waitSig) begin 
+		next_state = state_LEVEL1_Out_FalWait; end
+	 else begin 
+		next_state = state_LEVEL1;
+	// show fal on bcd go back level state
+	// Wait for all switches turn 0 again.
+	end
+    end
+    state_LEVEL2 : begin
+        if begin (out) next_state = state_LEVEL2_Out_Soru; out = 0; end
+        else begin next_state = state_LEVEL2; out = 0; end// its same level 
+    end
+	 state_LEVEL2_Out_Soru: begin 
+	 // 42-15  = 4 2 1 5   =  27
+	 next_state = state; // bu sayede out 0 olunca tekrar clockta oraya buraya gitmesin
+	 bcd0 <= 7'b0100100;
+    bcd1 <= 7'b1001111;
+	 bcd2 <= 7'b0010010;
+    bcd3 <= 7'b1001100;
+	 if(button) begin
+	  if(switch[4] && switch[3] && !switch[2] && switch[1] && !switch[0])begin
+			//true
+			next_state = state_LEVEL2_Out_TruWait;
+			end;
+		else begin
+		 //false
+			next_state = state_LEVEL2_Out_FalWait;
+		 end
+		 
+		 end
+		 end
+	state_LEVEL2_Out_TruWait:begin 
+	 bcd0 <= 7'b0011100; // u harf
+    bcd1 <= 7'b0000101; // r harf
+	 bcd2 <= 7'b0001111; // t harf
+    bcd3 <= 7'b1111111; // blank
+	 if(waitSig) begin 
+		next_state = state_LEVEL2_Out_TruWait; end
+	 else begin 
+		next_state = state_LEVEL3;
+	// show tru on bcd , go next level state
+	// Wait for all switches turn 0 again.
+	end
+	end
+	state_LEVEL2_Out_FalWait:begin 
+	 bcd0 <= 7'b1011011; // S harf
+    bcd1 <= 7'b0001110	; // L harf
+	 bcd2 <= 7'b1110111; // A harf
+    bcd3 <= 7'b1000111; // F
+	 
+	  if(waitSig) begin 
+		next_state = state_LEVEL2_Out_FalWait; end
+	 else begin 
+		next_state = state_LEVEL2;
+	// show fal on bcd go back level state
+	// Wait for all switches turn 0 again.
+	end
+    end
+    state_LEVEL3 : begin
+        if begin (out) next_state = state_LEVEL3_Out_Soru; out = 0; end
+        else begin next_state = state_LEVEL3; out = 0; end// its same level 
+    end
+	 state_LEVEL3_Out_Soru: begin 
+	 // 12*11  = 1 2 1 1  =  132
+	 next_state = state; // bu sayede out 0 olunca tekrar clockta oraya buraya gitmesin
+	 bcd0 <= 7'b1001111;
+    bcd1 <= 7'b0010010;
+	 bcd2 <= 7'b1001111;
+    bcd3 <= 7'b1001111;
+	 if(button) begin
+	  if(switch[7] && !switch[6] && !switch[5] && !switch[4] && !switch[3] && switch[2] && !switch[1] && !switch[0])begin
+			//true
+			next_state = state_LEVEL3_Out_TruWait;
+			end;
+		else begin
+		 //false
+			next_state = state_LEVEL3_Out_FalWait;
+		 end
+		 
+		 end
+		 end
+	state_LEVEL3_Out_TruWait:begin 
+	 bcd0 <= 7'b0011100; // u harf
+    bcd1 <= 7'b0000101; // r harf
+	 bcd2 <= 7'b0001111; // t harf
+    bcd3 <= 7'b1111111; // blank
+	 if(waitSig) begin 
+		next_state = state_LEVEL3_Out_TruWait; end
+	 else begin 
+		next_state = state_LEVEL4;
+	// show tru on bcd , go next level state
+	// Wait for all switches turn 0 again.
+	end
+	end
+	state_LEVEL3_Out_FalWait:begin 
+	 bcd0 <= 7'b1011011; // S harf
+    bcd1 <= 7'b0001110	; // L harf
+	 bcd2 <= 7'b1110111; // A harf
+    bcd3 <= 7'b1000111; // F
+	 
+	  if(waitSig) begin 
+		next_state = state_LEVEL3_Out_FalWait; end
+	 else begin 
+		next_state = state_LEVEL3;
+	// show fal on bcd go back level state
+	// Wait for all switches turn 0 again.
+	end
+    end
+    state_LEVEL4 : begin
+        if begin (out) next_state = state_LEVEL4_Out_Soru; out = 0; end
+        else begin next_state = state_LEVEL4; out = 0; end// its same level 
+    end
+	 state_LEVEL4_Out_Soru: begin 
+	 // 98 0 7  = 9 8 ' 7   =  14
+	 next_state = state; // bu sayede out 0 olunca tekrar clockta oraya buraya gitmesin
+	 bcd0 <= 7'b0001111;
+    bcd1 <= 7'b1111111;
+	 bcd2 <= 7'b0000000;
+    bcd3 <= 7'b0000100;
+	 if(button) begin
+	  if(switch[3] && switch[2] && switch[1] && !switch[0])begin
+			//true
+			next_state = state_LEVEL4_Out_TruWait;
+			end;
+		else begin
+		 //false
+			next_state = state_LEVEL4_Out_FalWait;
+		 end
+		 
+		 end
+		 end
+	state_LEVEL4_Out_TruWait:begin 
+	 bcd0 <= 7'b0011100; // u harf
+    bcd1 <= 7'b0000101; // r harf
+	 bcd2 <= 7'b0001111; // t harf
+    bcd3 <= 7'b1111111; // blank
+	 if(waitSig) begin 
+		next_state = state_LEVEL4_Out_TruWait; end
+	 else begin 
+		next_state = state_LEVEL5;
+	// show tru on bcd , go next level state
+	// Wait for all switches turn 0 again.
+	end
+	end
+	state_LEVEL4_Out_FalWait:begin 
+	 bcd0 <= 7'b1011011; // S harf
+    bcd1 <= 7'b0001110	; // L harf
+	 bcd2 <= 7'b1110111; // A harf
+    bcd3 <= 7'b1000111; // F
+	 
+	  if(waitSig) begin 
+		next_state = state_LEVEL4_Out_FalWait; end
+	 else begin 
+		next_state = state_LEVEL4;
+	// show fal on bcd go back level state
+	// Wait for all switches turn 0 again.
+	end
+    end
+    state_LEVEL5 : begin
+        if begin (out) next_state = state_LEVEL5_Out_Soru; out = 0; end
+        else begin next_state = state_LEVEL1; out = 0; end// its same level 
+    end
+	 state_LEVEL5_Out_Soru: begin 
+	 // 12+34  = 1 2 3 4  =  46
+	 next_state = state; // bu sayede out 0 olunca tekrar clockta oraya buraya gitmesin
+	 bcd0 <= 7'b1001111;
+    bcd1 <= 7'b0110000;
+	 bcd2 <= 7'b0000110;
+    bcd3 <= 7'b1001100;
+	 if(button) begin
+	  if(switch[5] && !switch[4] && switch[3] && switch[2] && switch[1] && !switch)begin
+			//true
+			next_state = state_LEVEL5_Out_TruWait;
+			end;
+		else begin
+		 //false
+			next_state = state_LEVEL5_Out_FalWait;
+		 end
+		 
+		 end
+		 end
+	state_LEVEL5_Out_TruWait:begin 
+	 bcd0 <= 7'b0011100; // u harf
+    bcd1 <= 7'b0000101; // r harf
+	 bcd2 <= 7'b0001111; // t harf
+    bcd3 <= 7'b1111111; // blank
+	 if(waitSig) begin 
+		next_state = state_LEVEL5_Out_TruWait; end
+	 else begin 
+		next_state = state_LEVEL6;
+	// show tru on bcd , go next level state
+	// Wait for all switches turn 0 again.
+	end
+	end
+	state_LEVEL5_Out_FalWait:begin 
+	 bcd0 <= 7'b1011011; // S harf
+    bcd1 <= 7'b0001110	; // L harf
+	 bcd2 <= 7'b1110111; // A harf
+    bcd3 <= 7'b1000111; // F
+	 
+	  if(waitSig) begin 
+		next_state = state_LEVEL5_Out_FalWait; end
+	 else begin 
+		next_state = state_LEVEL5;
+	// show fal on bcd go back level state
+	// Wait for all switches turn 0 again.
+	end
+    end
+    state_LEVEL6 : begin
+        if begin (out) next_state = state_LEVEL6_Out_Soru; out = 0; end
+        else begin next_state = state_LEVEL6; out = 0; end// its same level 
+    end
+	 state_LEVEL6_Out_Soru: begin 
+	 // 12+34  = 1 2 3 4  =  46
+	 next_state = state; // bu sayede out 0 olunca tekrar clockta oraya buraya gitmesin
+	 bcd0 <= 7'b1001111;
+    bcd1 <= 7'b0110000;
+	 bcd2 <= 7'b0000110;
+    bcd3 <= 7'b1001100;
+	 if(button) begin
+	  if(switch[5] && !switch[4] && switch[3] && switch[2] && switch[1] && !switch)begin
+			//true
+			next_state = state_LEVEL6_Out_TruWait;
+			end;
+		else begin
+		 //false
+			next_state = state_LEVEL6_Out_FalWait;
+		 end
+		 
+		 end
+		 end
+	state_LEVEL6_Out_TruWait:begin 
+	 bcd0 <= 7'b0011100; // u harf
+    bcd1 <= 7'b0000101; // r harf
+	 bcd2 <= 7'b0001111; // t harf
+    bcd3 <= 7'b1111111; // blank
+	 if(waitSig) begin 
+		next_state = state_LEVEL1_Out_TruWait; end
+	 else begin 
+		next_state = state_FINISH;
+	// show tru on bcd , go next level state
+	// Wait for all switches turn 0 again.
+	end
+	end
+	state_LEVEL6_Out_FalWait:begin 
+	 bcd0 <= 7'b1011011; // S harf
+    bcd1 <= 7'b0001110	; // L harf
+	 bcd2 <= 7'b1110111; // A harf
+    bcd3 <= 7'b1000111; // F
+	 
+	  if(waitSig) begin 
+		next_state = state_LEVEL6_Out_FalWait; end
+	 else begin 
+		next_state = state_LEVEL6;
+	// show fal on bcd go back level state
+	// Wait for all switches turn 0 again.
+	end
+    end
+	 state_FINISH: begin
+	 //clock rate slowRate
+	 bcd0 <= 7'b0111101; // d harf
+    bcd1 <= 7'b0010101	; // n harf
+	 bcd2 <= 7'1001111; // E harf
+    bcd3 <= 7'b1111111; // 
+	 next_state  = state_FINISH2;
+	 end
+	 state_FINISH2 : begin
+	 // pointsleri BCD goster
+	 next_state <= state_start;
+	 bcd3 <= 7'b1111111;
+	 bcd2 <= 7'b1111111; // 
+	 
+	 if (points >= 10) begin
+    tens <= 1;
+    ones <= points - 10;
+	 end else
+	 tens <= 0;
+	 ones <= points; 
+	 end
+	 case (tens) //case statement
+            0 : bcd1 = 7'b0000001;
+            1 : bcd1 = 7'b1001111;
+            2 : bcd1 = 7'b0010010;
+            3 : bcd1 = 7'b0000110;
+            4 : bcd1 = 7'b1001100;
+            5 : bcd1 = 7'b0100100;
+            6 : bcd1 = 7'b0100000;
+            7 : bcd1 = 7'b0001111;
+            8 : bcd1 = 7'b0000000;
+            9 : bcd1 = 7'b0000100;
+            //switch off 7 segment character when the bcd digit is not a decimal number.
+            default : seg = 7'b1111111; 
+        endcase
+		  case (ones) //case statement
+            0 : bcd0 = 7'b0000001;
+            1 : bcd0 = 7'b1001111;
+            2 : bcd0 = 7'b0010010;
+            3 : bcd0 = 7'b0000110;
+            4 : bcd0 = 7'b1001100;
+            5 : bcd0 = 7'b0100100;
+            6 : bcd0 = 7'b0100000;
+            7 : bcd0 = 7'b0001111;
+            8 : bcd0 = 7'b0000000;
+            9 : bcd0 = 7'b0000100;
+            //switch off 7 segment character when the bcd digit is not a decimal number.
+            default : seg = 7'b1111111; 
+        endcase
+	 
+	 // binary to DEC  then to sayi
+	 end
+	 endcase
+	 // oyun bitti burdan idle state don
+
+
+end
+
+// TUM SWITCHLER offsa  sinyal verir
+always(*) begin : SWITCH_OFF
+	integer j;
+	integer sayim = 0;
+
+for( j = 0 ; j < 10 ; j++)begin
+	if(switch[j])begin
+		sayim = sayim+1; end
+	end
+	if(sayim != 0) begin
+		waitSig = 1; end // waitlesin
+	else begin
+		waitSig = 0; end // beklemesin
+ end 
+  // Switchlerin degismesi 
+  // buna gore out sinyalleri geliyor
+always(*) begin : SWITCH_CONTROL
+	integer i;
+	integer sayi = 0;
+for( i = 0 ; i < 10 ; i++)begin
+    if( switch[i] && LED[i]) begin
+				sayi  = sayi + 1;
+            //out = true olsun ki state seyi degissin outa gore degisen leveller olcak LEVEL1 ise LEVEL1_OUT'a gelicek -> burdan geridonerse seyleri 0'lamak lazim.
+            //point = gecen zaman ekle . min puan kazanir 
+		end
+	end
+	if(sayi == 3 && (state == state_LEVEL1 || state == state_LEVEL2))begin	
+			out  = 1 ;
+	end
+	else if(sayi == 2 && (state == state_LEVEL3 || state == state_LEVEL4))begin	
+			out  = 1 ;
+	end
+	else if(sayi == 1 && (state == state_LEVEL5 || state == state_LEVEL6))begin	
+			out  = 1 ;
+	end
+	else begin
+	out  = 0;
+	end
+	
+end
+  
+  
+  
+  
+  // LED loop logic
+  
+  always@(posedge Clock) begin : LED_LOGIC
+//for led 0  -> 
+//LEDLER
+	integer x,y,z;
+    if(state_LEVEL1 && pulselow) begin
+        for(x=1,y=5,z=8,; ; x++,y++,z++) begin
+            led[x] <= 1;
+            led[y] <= 1;
+            led[z] <= 1;
+
+            if(x+1>=10) begin
+                x = -1; end
+            else if(x-1<=-1) begin
+                x = 11; end
+            if(y+1>=10) begin
+                y = -1; end
+            else if(y-1<=-1) begin
+                y = 11; end
+            if(z+1>=10) begin
+                x = -1; end
+            else if(z-1<=-1) begin
+                z = 11; end
+            end   
+			
+ else if (level2 && pulselow) begin 
+    // clock SlowRate yap
+     for(x=2,y=6,z=9; ;x++,y--,z++ )begin
+            led[x] <= 1;
+            led[y] <= 1;
+            led[z] <= 1;
+            
+            if(x+1>=10) begin
+                x = -1; end
+            else if(x-1<=-1) begin
+                x = 11; end
+            if(y+1>=10) begin
+                y = -1; end
+            else if(y-1<=-1) begin
+                y = 11; end
+            if(z+1>=10) begin
+                x = -1; end
+            else if(z-1<=-1)begin
+                z = 11; end
+        end
+ 
+ end
+
+  else if (level3 && pulsemid) begin 
+    // clock midRate yap
+     for( x=2,y=6; ;x++,y++ ) begin
+            led[x] <= 1;
+            led[y] <= 1;
+            if(x+1>=10) begin
+                x = -1; end
+            else if(x-1<=-1) begin
+                x = 11; end
+            if(y+1>=10) begin
+                y = -1; end
+            else if(y-1<=-1) begin
+                y = 11; end
+				end
+     end
+  else if (level4 && pulsemid) begin 
+    // clock midRate yap
+     for( x=5,y=9; ;x--,y++ ) begin
+            led[x] <= 1;
+            led[y] <= 1;
+            if(x+1>=10) begin
+                x = -1; end
+            else if(x-1<=-1) begin
+                x = 11; end
+            if(y+1>=10) begin
+                y = -1; end
+            else if(y-1<=-1) begin
+                y = 11; end
+				end
+    end
+     
+       else if (level5 && pulsefast) begin 
+     //clock fastRate yap
+     for(x=5; ;x-- ) begin
+            led[x] <= 1;
+            if(x+1>=10) begin
+                x = -1; end
+            else if(x-1<=-1) begin
+                x = 11; end
+        end
+  end   
+       else if (level6 && pulsefast) begin 
+     //clock fastRate yap
+     for(x=5; ;x++ ) begin
+            led[x] <= 1;
+            if(x+1>=10) begin
+                x = -1; end
+            else if(x-1<=-1) begin
+                x = 11; end
+        end
+	end
+	end

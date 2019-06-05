@@ -1,0 +1,656 @@
+Analysis & Synthesis report for verilogGame
+Thu May 02 15:20:00 2019
+Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |something|currentstatelevel1
+  9. State Machine - |something|state
+ 10. User-Specified and Inferred Latches
+ 11. Registers Removed During Synthesis
+ 12. Removed Registers Triggering Further Register Optimizations
+ 13. General Register Statistics
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Parameter Settings for User Entity Instance: Top-level Entity: |something
+ 16. Elapsed Time Per Partition
+ 17. Analysis & Synthesis Messages
+ 18. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++---------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                    ;
++------------------------------------+--------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Thu May 02 15:20:00 2019      ;
+; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Web Edition ;
+; Revision Name                      ; verilogGame                                ;
+; Top-level Entity Name              ; something                                  ;
+; Family                             ; Cyclone III                                ;
+; Total logic elements               ; 241                                        ;
+;     Total combinational functions  ; 241                                        ;
+;     Dedicated logic registers      ; 33                                         ;
+; Total registers                    ; 33                                         ;
+; Total pins                         ; 51                                         ;
+; Total virtual pins                 ; 0                                          ;
+; Total memory bits                  ; 0                                          ;
+; Embedded Multiplier 9-bit elements ; 0                                          ;
+; Total PLLs                         ; 0                                          ;
++------------------------------------+--------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                     ; EP3C16F484C6       ;                    ;
+; Top-level entity name                                                      ; something          ; verilogGame        ;
+; Family name                                                                ; Cyclone III        ; Cyclone IV GX      ;
+; Use smart compilation                                                      ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto ROM Replacement                                                       ; On                 ; On                 ;
+; Auto RAM Replacement                                                       ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                 ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto RAM Block Balancing                                                   ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; On                 ; On                 ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
+; Synthesis Seed                                                             ; 1                  ; 1                  ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 4      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                               ;
++----------------------------------+-----------------+------------------------+------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path ; Library ;
++----------------------------------+-----------------+------------------------+------------------------------+---------+
+; something.v                      ; yes             ; User Verilog HDL File  ; C:/altera/13.1/something.v   ;         ;
++----------------------------------+-----------------+------------------------+------------------------------+---------+
+
+
++------------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                      ;
++---------------------------------------------+--------------------+
+; Resource                                    ; Usage              ;
++---------------------------------------------+--------------------+
+; Estimated Total logic elements              ; 241                ;
+;                                             ;                    ;
+; Total combinational functions               ; 241                ;
+; Logic element usage by number of LUT inputs ;                    ;
+;     -- 4 input functions                    ; 109                ;
+;     -- 3 input functions                    ; 65                 ;
+;     -- <=2 input functions                  ; 67                 ;
+;                                             ;                    ;
+; Logic elements by mode                      ;                    ;
+;     -- normal mode                          ; 201                ;
+;     -- arithmetic mode                      ; 40                 ;
+;                                             ;                    ;
+; Total registers                             ; 33                 ;
+;     -- Dedicated logic registers            ; 33                 ;
+;     -- I/O registers                        ; 0                  ;
+;                                             ;                    ;
+; I/O pins                                    ; 51                 ;
+; Embedded Multiplier 9-bit elements          ; 0                  ;
+; Maximum fan-out node                        ; state.state_LEVEL1 ;
+; Maximum fan-out                             ; 38                 ;
+; Total fan-out                               ; 935                ;
+; Average fan-out                             ; 2.49               ;
++---------------------------------------------+--------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; |something                 ; 241 (241)         ; 33 (33)      ; 0           ; 0            ; 0       ; 0         ; 51   ; 0            ; |something          ; work         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |something|currentstatelevel1                                                                                                                                                                                                                                                                                                                  ;
++--------------------------------+-------------------------------+--------------------------------+--------------------------------+------------------------------+-------------------------------+-------------------------------+--------------------------------+------------------------------+------------------------------+-------------------------------+
+; Name                           ; currentstatelevel1.state_nine ; currentstatelevel1.state_eight ; currentstatelevel1.state_seven ; currentstatelevel1.state_six ; currentstatelevel1.state_five ; currentstatelevel1.state_four ; currentstatelevel1.state_three ; currentstatelevel1.state_two ; currentstatelevel1.state_one ; currentstatelevel1.state_zero ;
++--------------------------------+-------------------------------+--------------------------------+--------------------------------+------------------------------+-------------------------------+-------------------------------+--------------------------------+------------------------------+------------------------------+-------------------------------+
+; currentstatelevel1.state_zero  ; 0                             ; 0                              ; 0                              ; 0                            ; 0                             ; 0                             ; 0                              ; 0                            ; 0                            ; 0                             ;
+; currentstatelevel1.state_one   ; 0                             ; 0                              ; 0                              ; 0                            ; 0                             ; 0                             ; 0                              ; 0                            ; 1                            ; 1                             ;
+; currentstatelevel1.state_two   ; 0                             ; 0                              ; 0                              ; 0                            ; 0                             ; 0                             ; 0                              ; 1                            ; 0                            ; 1                             ;
+; currentstatelevel1.state_three ; 0                             ; 0                              ; 0                              ; 0                            ; 0                             ; 0                             ; 1                              ; 0                            ; 0                            ; 1                             ;
+; currentstatelevel1.state_four  ; 0                             ; 0                              ; 0                              ; 0                            ; 0                             ; 1                             ; 0                              ; 0                            ; 0                            ; 1                             ;
+; currentstatelevel1.state_five  ; 0                             ; 0                              ; 0                              ; 0                            ; 1                             ; 0                             ; 0                              ; 0                            ; 0                            ; 1                             ;
+; currentstatelevel1.state_six   ; 0                             ; 0                              ; 0                              ; 1                            ; 0                             ; 0                             ; 0                              ; 0                            ; 0                            ; 1                             ;
+; currentstatelevel1.state_seven ; 0                             ; 0                              ; 1                              ; 0                            ; 0                             ; 0                             ; 0                              ; 0                            ; 0                            ; 1                             ;
+; currentstatelevel1.state_eight ; 0                             ; 1                              ; 0                              ; 0                            ; 0                             ; 0                             ; 0                              ; 0                            ; 0                            ; 1                             ;
+; currentstatelevel1.state_nine  ; 1                             ; 0                              ; 0                              ; 0                            ; 0                             ; 0                             ; 0                              ; 0                            ; 0                            ; 1                             ;
++--------------------------------+-------------------------------+--------------------------------+--------------------------------+------------------------------+-------------------------------+-------------------------------+--------------------------------+------------------------------+------------------------------+-------------------------------+
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |something|state                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ;
++--------------------------------+---------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+-------------------+
+; Name                           ; state.state_FINISH2 ; state.state_FINISH ; state.state_LEVEL6_Out_FalWait ; state.state_LEVEL6_Out_TruWait ; state.state_LEVEL6_Out_Soru ; state.state_LEVEL6 ; state.state_LEVEL5_Out_FalWait ; state.state_LEVEL5_Out_TruWait ; state.state_LEVEL5_Out_Soru ; state.state_LEVEL5 ; state.state_LEVEL4_Out_FalWait ; state.state_LEVEL4_Out_TruWait ; state.state_LEVEL4_Out_Soru ; state.state_LEVEL4 ; state.state_LEVEL3_Out_FalWait ; state.state_LEVEL3_Out_TruWait ; state.state_LEVEL3_Out_Soru ; state.state_LEVEL3 ; state.state_LEVEL2_Out_FalWait ; state.state_LEVEL2_Out_TruWait ; state.state_LEVEL2_Out_Soru ; state.state_LEVEL2 ; state.state_LEVEL1_Out_FalWait ; state.state_LEVEL1_Out_TruWait ; state.state_LEVEL1_Out_Soru ; state.state_LEVEL1 ; state.state_start ;
++--------------------------------+---------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+-------------------+
+; state.state_start              ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                 ;
+; state.state_LEVEL1             ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 1                  ; 1                 ;
+; state.state_LEVEL1_Out_Soru    ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 1                           ; 0                  ; 1                 ;
+; state.state_LEVEL1_Out_TruWait ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 1                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL1_Out_FalWait ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL2             ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 1                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL2_Out_Soru    ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 1                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL2_Out_TruWait ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 1                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL2_Out_FalWait ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL3             ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 1                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL3_Out_Soru    ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 1                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL3_Out_TruWait ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 1                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL3_Out_FalWait ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL4             ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 1                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL4_Out_Soru    ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 1                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL4_Out_TruWait ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 1                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL4_Out_FalWait ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL5             ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 1                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL5_Out_Soru    ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 1                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL5_Out_TruWait ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 1                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL5_Out_FalWait ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL6             ; 0                   ; 0                  ; 0                              ; 0                              ; 0                           ; 1                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL6_Out_Soru    ; 0                   ; 0                  ; 0                              ; 0                              ; 1                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL6_Out_TruWait ; 0                   ; 0                  ; 0                              ; 1                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_LEVEL6_Out_FalWait ; 0                   ; 0                  ; 1                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_FINISH             ; 0                   ; 1                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
+; state.state_FINISH2            ; 1                   ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 0                              ; 0                              ; 0                           ; 0                  ; 1                 ;
++--------------------------------+---------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+--------------------------------+--------------------------------+-----------------------------+--------------------+-------------------+
+
+
++----------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                ;
++-----------------------------------------------------+---------------------+------------------------+
+; Latch Name                                          ; Latch Enable Signal ; Free of Timing Hazards ;
++-----------------------------------------------------+---------------------+------------------------+
+; bcd0[0]$latch                                       ; WideOr13            ; yes                    ;
+; bcd0[1]$latch                                       ; WideOr13            ; yes                    ;
+; bcd0[2]$latch                                       ; WideOr13            ; yes                    ;
+; bcd0[3]$latch                                       ; WideOr13            ; yes                    ;
+; bcd0[4]$latch                                       ; WideOr13            ; yes                    ;
+; bcd0[5]$latch                                       ; WideOr13            ; yes                    ;
+; bcd0[6]$latch                                       ; WideOr13            ; yes                    ;
+; bcd1[0]$latch                                       ; WideOr13            ; yes                    ;
+; bcd1[1]$latch                                       ; WideOr13            ; yes                    ;
+; bcd1[2]$latch                                       ; WideOr13            ; yes                    ;
+; bcd1[3]$latch                                       ; WideOr13            ; yes                    ;
+; bcd1[4]$latch                                       ; WideOr13            ; yes                    ;
+; bcd1[5]$latch                                       ; WideOr13            ; yes                    ;
+; bcd1[6]$latch                                       ; WideOr13            ; yes                    ;
+; bcd2[0]$latch                                       ; WideOr13            ; yes                    ;
+; bcd2[1]$latch                                       ; WideOr13            ; yes                    ;
+; bcd2[2]$latch                                       ; WideOr13            ; yes                    ;
+; bcd2[3]$latch                                       ; WideOr13            ; yes                    ;
+; bcd2[4]$latch                                       ; WideOr13            ; yes                    ;
+; bcd2[5]$latch                                       ; WideOr13            ; yes                    ;
+; bcd2[6]$latch                                       ; WideOr13            ; yes                    ;
+; bcd3[0]$latch                                       ; WideOr13            ; yes                    ;
+; bcd3[1]$latch                                       ; WideOr13            ; yes                    ;
+; bcd3[3]$latch                                       ; WideOr13            ; yes                    ;
+; bcd3[4]$latch                                       ; WideOr13            ; yes                    ;
+; bcd3[5]$latch                                       ; WideOr13            ; yes                    ;
+; bcd3[6]$latch                                       ; WideOr13            ; yes                    ;
+; nexstatelevel1.state_nine_3379                      ; state.state_LEVEL1  ; yes                    ;
+; nexstatelevel1.state_eight_3397                     ; state.state_LEVEL1  ; yes                    ;
+; nexstatelevel1.state_seven_3415                     ; state.state_LEVEL1  ; yes                    ;
+; nexstatelevel1.state_six_3433                       ; state.state_LEVEL1  ; yes                    ;
+; nexstatelevel1.state_five_3451                      ; state.state_LEVEL1  ; yes                    ;
+; nexstatelevel1.state_four_3469                      ; state.state_LEVEL1  ; yes                    ;
+; nexstatelevel1.state_one_3523                       ; state.state_LEVEL1  ; yes                    ;
+; nexstatelevel1.state_three_3487                     ; state.state_LEVEL1  ; yes                    ;
+; nexstatelevel1.state_two_3505                       ; state.state_LEVEL1  ; yes                    ;
+; nexstatelevel1.state_zero_3541                      ; state.state_LEVEL1  ; yes                    ;
+; Number of user-specified and inferred latches = 37  ;                     ;                        ;
++-----------------------------------------------------+---------------------+------------------------+
+Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++---------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                              ;
++----------------------------------------+----------------------------------------+
+; Register name                          ; Reason for Removal                     ;
++----------------------------------------+----------------------------------------+
+; currentstatelevel1~4                   ; Lost fanout                            ;
+; currentstatelevel1~5                   ; Lost fanout                            ;
+; currentstatelevel1~6                   ; Lost fanout                            ;
+; currentstatelevel1~7                   ; Lost fanout                            ;
+; state~4                                ; Lost fanout                            ;
+; state~5                                ; Lost fanout                            ;
+; state~6                                ; Lost fanout                            ;
+; state~7                                ; Lost fanout                            ;
+; state~8                                ; Lost fanout                            ;
+; state.state_LEVEL6_Out_TruWait         ; Stuck at GND due to stuck port data_in ;
+; state.state_FINISH                     ; Stuck at GND due to stuck port data_in ;
+; state.state_FINISH2                    ; Stuck at GND due to stuck port data_in ;
+; state.state_LEVEL5_Out_TruWait         ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 13 ;                                        ;
++----------------------------------------+----------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                         ;
++--------------------------------+---------------------------+----------------------------------------+
+; Register name                  ; Reason for Removal        ; Registers Removed due to This Register ;
++--------------------------------+---------------------------+----------------------------------------+
+; state.state_LEVEL6_Out_TruWait ; Stuck at GND              ; state.state_FINISH                     ;
+;                                ; due to stuck port data_in ;                                        ;
++--------------------------------+---------------------------+----------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 33    ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 33    ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; 3:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |something|led             ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+
+
++---------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |something ;
++--------------------------+-------+----------------------------------------+
+; Parameter Name           ; Value ; Type                                   ;
++--------------------------+-------+----------------------------------------+
+; state_start              ; 00000 ; Unsigned Binary                        ;
+; state_LEVEL1             ; 00001 ; Unsigned Binary                        ;
+; state_LEVEL1_Out_Soru    ; 00010 ; Unsigned Binary                        ;
+; state_LEVEL1_Out_TruWait ; 00011 ; Unsigned Binary                        ;
+; state_LEVEL1_Out_FalWait ; 00100 ; Unsigned Binary                        ;
+; state_LEVEL2             ; 00101 ; Unsigned Binary                        ;
+; state_LEVEL2_Out_Soru    ; 00110 ; Unsigned Binary                        ;
+; state_LEVEL2_Out_TruWait ; 00111 ; Unsigned Binary                        ;
+; state_LEVEL2_Out_FalWait ; 01000 ; Unsigned Binary                        ;
+; state_LEVEL3             ; 01001 ; Unsigned Binary                        ;
+; state_LEVEL3_Out_Soru    ; 01010 ; Unsigned Binary                        ;
+; state_LEVEL3_Out_TruWait ; 01011 ; Unsigned Binary                        ;
+; state_LEVEL3_Out_FalWait ; 01100 ; Unsigned Binary                        ;
+; state_LEVEL4             ; 01101 ; Unsigned Binary                        ;
+; state_LEVEL4_Out_Soru    ; 01110 ; Unsigned Binary                        ;
+; state_LEVEL4_Out_TruWait ; 01111 ; Unsigned Binary                        ;
+; state_LEVEL4_Out_FalWait ; 10000 ; Unsigned Binary                        ;
+; state_LEVEL5             ; 10001 ; Unsigned Binary                        ;
+; state_LEVEL5_Out_Soru    ; 10010 ; Unsigned Binary                        ;
+; state_LEVEL5_Out_TruWait ; 10011 ; Unsigned Binary                        ;
+; state_LEVEL5_Out_FalWait ; 10100 ; Unsigned Binary                        ;
+; state_LEVEL6             ; 10101 ; Unsigned Binary                        ;
+; state_LEVEL6_Out_Soru    ; 10110 ; Unsigned Binary                        ;
+; state_LEVEL6_Out_TruWait ; 10111 ; Unsigned Binary                        ;
+; state_LEVEL6_Out_FalWait ; 11000 ; Unsigned Binary                        ;
+; state_FINISH             ; 11001 ; Unsigned Binary                        ;
+; state_FINISH2            ; 11010 ; Unsigned Binary                        ;
+; state_zero               ; 0000  ; Unsigned Binary                        ;
+; state_one                ; 0001  ; Unsigned Binary                        ;
+; state_two                ; 0010  ; Unsigned Binary                        ;
+; state_three              ; 0011  ; Unsigned Binary                        ;
+; state_four               ; 0100  ; Unsigned Binary                        ;
+; state_five               ; 0101  ; Unsigned Binary                        ;
+; state_six                ; 0110  ; Unsigned Binary                        ;
+; state_seven              ; 0111  ; Unsigned Binary                        ;
+; state_eight              ; 1000  ; Unsigned Binary                        ;
+; state_nine               ; 1001  ; Unsigned Binary                        ;
+; DONE                     ; 10    ; Unsigned Binary                        ;
++--------------------------+-------+----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:01     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
+    Info: Processing started: Thu May 02 15:19:57 2019
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off verilogGame -c verilogGame
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 1 design units, including 1 entities, in source file something.v
+    Info (12023): Found entity 1: something
+Info (12127): Elaborating entity "something" for the top level hierarchy
+Warning (10858): Verilog HDL warning at something.v(76): object points used but never assigned
+Warning (10036): Verilog HDL or VHDL warning at something.v(81): object "pulsefast" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at something.v(82): object "pulsemid" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at something.v(94): object "currentstatelevel2" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at something.v(95): object "currentstatelevel3" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at something.v(96): object "currentstatelevel4" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at something.v(97): object "currentstatelevel5" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at something.v(98): object "currentstatelevel6" assigned a value but never read
+Warning (10762): Verilog HDL Case Statement warning at something.v(483): can't check case statement for completeness because the case expression has too many possible states
+Warning (10762): Verilog HDL Case Statement warning at something.v(497): can't check case statement for completeness because the case expression has too many possible states
+Warning (10240): Verilog HDL Always Construct warning at something.v(149): inferring latch(es) for variable "bcd0", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at something.v(149): inferring latch(es) for variable "bcd1", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at something.v(149): inferring latch(es) for variable "bcd2", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at something.v(149): inferring latch(es) for variable "bcd3", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at something.v(149): inferring latch(es) for variable "tens", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at something.v(149): inferring latch(es) for variable "ones", which holds its previous value in one or more paths through the always construct
+Warning (10235): Verilog HDL Always Construct warning at something.v(581): variable "currentstatelevel1" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(585): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(591): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(598): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(605): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(612): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(617): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(627): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(633): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(640): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(646): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(654): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(659): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(669): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(676): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(682): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(688): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(696): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(701): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(711): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(717): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(723): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(729): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(736): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(741): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(751): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(758): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(765): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(771): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(778): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(783): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(793): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(801): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(808): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(814): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(821): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(826): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(836): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(843): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(850): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(856): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(863): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(868): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(877): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(884): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(891): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(897): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(904): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(909): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(918): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(924): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(931): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(937): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(944): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(949): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(958): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(964): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(971): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(977): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(984): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at something.v(989): variable "state" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10240): Verilog HDL Always Construct warning at something.v(579): inferring latch(es) for variable "nexstatelevel1", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at something.v(579): inferring latch(es) for variable "nexstatelevel2", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at something.v(579): inferring latch(es) for variable "nexstatelevel3", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at something.v(579): inferring latch(es) for variable "nexstatelevel4", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at something.v(579): inferring latch(es) for variable "nexstatelevel5", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at something.v(579): inferring latch(es) for variable "nexstatelevel6", which holds its previous value in one or more paths through the always construct
+Warning (10030): Net "points" at something.v(76) has no driver or initial value, using a default initial value '0'
+Info (10041): Inferred latch for "nexstatelevel1.state_nine" at something.v(579)
+Info (10041): Inferred latch for "nexstatelevel1.state_eight" at something.v(579)
+Info (10041): Inferred latch for "nexstatelevel1.state_seven" at something.v(579)
+Info (10041): Inferred latch for "nexstatelevel1.state_six" at something.v(579)
+Info (10041): Inferred latch for "nexstatelevel1.state_five" at something.v(579)
+Info (10041): Inferred latch for "nexstatelevel1.state_four" at something.v(579)
+Info (10041): Inferred latch for "nexstatelevel1.state_three" at something.v(579)
+Info (10041): Inferred latch for "nexstatelevel1.state_two" at something.v(579)
+Info (10041): Inferred latch for "nexstatelevel1.state_one" at something.v(579)
+Info (10041): Inferred latch for "nexstatelevel1.state_zero" at something.v(579)
+Info (10041): Inferred latch for "ones[0]" at something.v(149)
+Info (10041): Inferred latch for "ones[1]" at something.v(149)
+Info (10041): Inferred latch for "ones[2]" at something.v(149)
+Info (10041): Inferred latch for "ones[3]" at something.v(149)
+Info (10041): Inferred latch for "ones[4]" at something.v(149)
+Info (10041): Inferred latch for "ones[5]" at something.v(149)
+Info (10041): Inferred latch for "ones[6]" at something.v(149)
+Info (10041): Inferred latch for "ones[7]" at something.v(149)
+Info (10041): Inferred latch for "ones[8]" at something.v(149)
+Info (10041): Inferred latch for "ones[9]" at something.v(149)
+Info (10041): Inferred latch for "ones[10]" at something.v(149)
+Info (10041): Inferred latch for "ones[11]" at something.v(149)
+Info (10041): Inferred latch for "ones[12]" at something.v(149)
+Info (10041): Inferred latch for "ones[13]" at something.v(149)
+Info (10041): Inferred latch for "ones[14]" at something.v(149)
+Info (10041): Inferred latch for "ones[15]" at something.v(149)
+Info (10041): Inferred latch for "ones[16]" at something.v(149)
+Info (10041): Inferred latch for "ones[17]" at something.v(149)
+Info (10041): Inferred latch for "ones[18]" at something.v(149)
+Info (10041): Inferred latch for "ones[19]" at something.v(149)
+Info (10041): Inferred latch for "ones[20]" at something.v(149)
+Info (10041): Inferred latch for "ones[21]" at something.v(149)
+Info (10041): Inferred latch for "ones[22]" at something.v(149)
+Info (10041): Inferred latch for "ones[23]" at something.v(149)
+Info (10041): Inferred latch for "ones[24]" at something.v(149)
+Info (10041): Inferred latch for "ones[25]" at something.v(149)
+Info (10041): Inferred latch for "ones[26]" at something.v(149)
+Info (10041): Inferred latch for "ones[27]" at something.v(149)
+Info (10041): Inferred latch for "ones[28]" at something.v(149)
+Info (10041): Inferred latch for "ones[29]" at something.v(149)
+Info (10041): Inferred latch for "ones[30]" at something.v(149)
+Info (10041): Inferred latch for "ones[31]" at something.v(149)
+Info (10041): Inferred latch for "tens[0]" at something.v(149)
+Info (10041): Inferred latch for "tens[1]" at something.v(149)
+Info (10041): Inferred latch for "tens[2]" at something.v(149)
+Info (10041): Inferred latch for "tens[3]" at something.v(149)
+Info (10041): Inferred latch for "tens[4]" at something.v(149)
+Info (10041): Inferred latch for "tens[5]" at something.v(149)
+Info (10041): Inferred latch for "tens[6]" at something.v(149)
+Info (10041): Inferred latch for "tens[7]" at something.v(149)
+Info (10041): Inferred latch for "tens[8]" at something.v(149)
+Info (10041): Inferred latch for "tens[9]" at something.v(149)
+Info (10041): Inferred latch for "tens[10]" at something.v(149)
+Info (10041): Inferred latch for "tens[11]" at something.v(149)
+Info (10041): Inferred latch for "tens[12]" at something.v(149)
+Info (10041): Inferred latch for "tens[13]" at something.v(149)
+Info (10041): Inferred latch for "tens[14]" at something.v(149)
+Info (10041): Inferred latch for "tens[15]" at something.v(149)
+Info (10041): Inferred latch for "tens[16]" at something.v(149)
+Info (10041): Inferred latch for "tens[17]" at something.v(149)
+Info (10041): Inferred latch for "tens[18]" at something.v(149)
+Info (10041): Inferred latch for "tens[19]" at something.v(149)
+Info (10041): Inferred latch for "tens[20]" at something.v(149)
+Info (10041): Inferred latch for "tens[21]" at something.v(149)
+Info (10041): Inferred latch for "tens[22]" at something.v(149)
+Info (10041): Inferred latch for "tens[23]" at something.v(149)
+Info (10041): Inferred latch for "tens[24]" at something.v(149)
+Info (10041): Inferred latch for "tens[25]" at something.v(149)
+Info (10041): Inferred latch for "tens[26]" at something.v(149)
+Info (10041): Inferred latch for "tens[27]" at something.v(149)
+Info (10041): Inferred latch for "tens[28]" at something.v(149)
+Info (10041): Inferred latch for "tens[29]" at something.v(149)
+Info (10041): Inferred latch for "tens[30]" at something.v(149)
+Info (10041): Inferred latch for "tens[31]" at something.v(149)
+Info (10041): Inferred latch for "bcd3[0]" at something.v(149)
+Info (10041): Inferred latch for "bcd3[1]" at something.v(149)
+Info (10041): Inferred latch for "bcd3[2]" at something.v(149)
+Info (10041): Inferred latch for "bcd3[3]" at something.v(149)
+Info (10041): Inferred latch for "bcd3[4]" at something.v(149)
+Info (10041): Inferred latch for "bcd3[5]" at something.v(149)
+Info (10041): Inferred latch for "bcd3[6]" at something.v(149)
+Info (10041): Inferred latch for "bcd2[0]" at something.v(149)
+Info (10041): Inferred latch for "bcd2[1]" at something.v(149)
+Info (10041): Inferred latch for "bcd2[2]" at something.v(149)
+Info (10041): Inferred latch for "bcd2[3]" at something.v(149)
+Info (10041): Inferred latch for "bcd2[4]" at something.v(149)
+Info (10041): Inferred latch for "bcd2[5]" at something.v(149)
+Info (10041): Inferred latch for "bcd2[6]" at something.v(149)
+Info (10041): Inferred latch for "bcd1[0]" at something.v(149)
+Info (10041): Inferred latch for "bcd1[1]" at something.v(149)
+Info (10041): Inferred latch for "bcd1[2]" at something.v(149)
+Info (10041): Inferred latch for "bcd1[3]" at something.v(149)
+Info (10041): Inferred latch for "bcd1[4]" at something.v(149)
+Info (10041): Inferred latch for "bcd1[5]" at something.v(149)
+Info (10041): Inferred latch for "bcd1[6]" at something.v(149)
+Info (10041): Inferred latch for "bcd0[0]" at something.v(149)
+Info (10041): Inferred latch for "bcd0[1]" at something.v(149)
+Info (10041): Inferred latch for "bcd0[2]" at something.v(149)
+Info (10041): Inferred latch for "bcd0[3]" at something.v(149)
+Info (10041): Inferred latch for "bcd0[4]" at something.v(149)
+Info (10041): Inferred latch for "bcd0[5]" at something.v(149)
+Info (10041): Inferred latch for "bcd0[6]" at something.v(149)
+Info (13025): Duplicate LATCH primitives merged into single LATCH primitive
+    Info (13026): Duplicate LATCH primitive "bcd3[1]$latch" merged with LATCH primitive "bcd2[0]$latch"
+    Info (13026): Duplicate LATCH primitive "bcd3[0]$latch" merged with LATCH primitive "bcd2[0]$latch"
+    Info (13026): Duplicate LATCH primitive "bcd3[6]$latch" merged with LATCH primitive "bcd2[1]$latch"
+    Info (13026): Duplicate LATCH primitive "bcd3[5]$latch" merged with LATCH primitive "bcd3[4]$latch"
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "bcd3[2]" is stuck at VCC
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 9 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file C:/altera/13.1/output_files/verilogGame.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 301 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 13 input pins
+    Info (21059): Implemented 38 output pins
+    Info (21061): Implemented 250 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 87 warnings
+    Info: Peak virtual memory: 4640 megabytes
+    Info: Processing ended: Thu May 02 15:20:00 2019
+    Info: Elapsed time: 00:00:03
+    Info: Total CPU time (on all processors): 00:00:02
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in C:/altera/13.1/output_files/verilogGame.map.smsg.
+
+
